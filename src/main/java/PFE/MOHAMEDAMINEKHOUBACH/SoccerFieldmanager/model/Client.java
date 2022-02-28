@@ -9,6 +9,7 @@ public class Client  extends Personnel implements Serializable  {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false , updatable = false)
     private long id;
+
     private long numapogee;
     private String date_creation_du_compte;
     private String login;

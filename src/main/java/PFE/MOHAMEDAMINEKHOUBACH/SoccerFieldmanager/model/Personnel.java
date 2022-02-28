@@ -8,6 +8,7 @@ public class Personnel extends Etablissement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
     private long id;
+
     private String cin;
     private String nom;
     private String prenom;
