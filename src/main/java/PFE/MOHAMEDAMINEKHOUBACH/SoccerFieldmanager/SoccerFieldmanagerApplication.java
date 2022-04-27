@@ -1,17 +1,57 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+
 @SpringBootApplication
+
 public class SoccerFieldmanagerApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SoccerFieldmanagerApplication.class, args);
+
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// TODO for 4-march-2022
 	/**
-	 * 1- create your database (soccer_db) in phpAdmin
+	 * 1- create your database (soccer_db) in phpAdmin : DONE
 	 * 2- You should distinguish between association and inheritance (l'heritage)
 	 * 	 Association:
 	 *   - One Reservation belong to one Terrain

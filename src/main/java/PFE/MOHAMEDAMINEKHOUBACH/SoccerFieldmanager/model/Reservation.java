@@ -2,8 +2,9 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+@Table
 @Entity
-public class Reservation extends Client implements Serializable {
+public class Reservation  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
@@ -11,6 +12,12 @@ public class Reservation extends Client implements Serializable {
     private String reference;
     private String date_reservation;
     private int num_terrain;
+    @ManyToOne
+    private Client client;
+    @OneToOne
+    private Terrain terrain;
+
+
 
     public Reservation() {}
 

@@ -3,13 +3,19 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-public class Terrain implements Serializable {
+@Table
+public class Terrain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false,nullable = false)
     private long id;
     private String reference;
     private String etat;
+
+    public Terrain(String reference, String etat) {
+        super();
+        this.reference = reference;
+        this.etat = etat;
+    }
 
     public Terrain() {}
 

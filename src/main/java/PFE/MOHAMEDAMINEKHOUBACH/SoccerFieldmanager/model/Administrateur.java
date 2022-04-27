@@ -4,16 +4,27 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
+@Table
 public class Administrateur extends Personnel implements Serializable {
-    
-    @Column( updatable = false , nullable = false)
 
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String login;
     private String password;
 
 
     public Administrateur() {}
+
+    public Administrateur(String cin, String nom, String prenom, String sexe, String numtel, String login, String password) {
+        super(cin, nom, prenom, sexe, numtel);
+        this.login = login;
+        this.password = password;
+    }
+
+
 
     public Administrateur(String login, String password) {
         this.login = login;
@@ -43,7 +54,6 @@ public class Administrateur extends Personnel implements Serializable {
     @Override
     public String toString(){
         return "Administrateur{" +
-                "id=" + getId() +
                 ", Prenom='" + this.getPrenom() + '\'' +
                 ", Nom='" + this.getNom() + '\'' +
                 '}';
