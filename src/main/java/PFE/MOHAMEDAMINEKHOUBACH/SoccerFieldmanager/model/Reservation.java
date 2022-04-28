@@ -11,7 +11,7 @@ public class Reservation  implements Serializable {
     private long id;
     private String reference;
     private String date_reservation;
-    private int num_terrain;
+
     @ManyToOne
     private Client client;
     @OneToOne
@@ -21,11 +21,11 @@ public class Reservation  implements Serializable {
 
     public Reservation() {}
 
-    public Reservation(long id, String reference, String date_reservation, int num_terrain) {
+    public Reservation(long id, String reference, String date_reservation) {
         this.id = id;
         this.reference = reference;
         this.date_reservation = date_reservation;
-        this.num_terrain = num_terrain;
+
     }
 
     public long getId() {
@@ -52,20 +52,13 @@ public class Reservation  implements Serializable {
         this.date_reservation = date_reservation;
     }
 
-    public int getNum_terrain() {
-        return num_terrain;
-    }
 
-    public void setNum_terrain(int num_terrain) {
-        this.num_terrain = num_terrain;
-    }
     @Override
     public String toString(){
         return "Reservation{" +
                 "id=" +id +
                 ", date reservation='" + date_reservation + '\'' +
                 ", reference='" + reference + '\'' +
-                ", num terrain ='" + num_terrain + '\'' +
                 '}';
     }
 }

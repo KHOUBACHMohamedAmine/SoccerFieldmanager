@@ -2,6 +2,12 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table
 public class Client  extends Personnel implements Serializable  {
@@ -10,20 +16,25 @@ public class Client  extends Personnel implements Serializable  {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private long numapogee;
-    private String date_creation_du_compte;
     private String login;
     private String password;
     private String etablissement;
 
+    @OneToOne
+    private Assurance assurance;
+
 
     public Client() {}
-    public Client(long numapogee, String date_creation_du_compte, String login, String password,String etablissement) {
+
+    public Client(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String login, String password, String etablissement,Assurance assurance) {
+        super(cin, nom, prenom, sexe, numtel);
+        this.assurance=assurance;
         this.numapogee = numapogee;
-        this.etablissement=etablissement;
-        this.date_creation_du_compte = date_creation_du_compte;
         this.login = login;
         this.password = password;
+        this.etablissement = etablissement;
     }
+
 
     public String getEtablissement() {
         return etablissement;
@@ -49,12 +60,12 @@ public class Client  extends Personnel implements Serializable  {
         this.numapogee = numapogee;
     }
 
-    public String getDate_creation_du_compte() {
-        return date_creation_du_compte;
+    public Assurance getAssurance() {
+        return assurance;
     }
 
-    public void setDate_creation_du_compte(String date_creation_du_compte) {
-        this.date_creation_du_compte = date_creation_du_compte;
+    public void setAssurance(Assurance assurance) {
+        this.assurance = assurance;
     }
 
     public String getLogin() {
@@ -81,5 +92,31 @@ public class Client  extends Personnel implements Serializable  {
                 ", prenom='" + this.getPrenom() + '\'' +
                 ", nom='" + this.getNom() + '\'' +
                 '}';
+    }
+    public boolean verifierAssurance(){
+        Date now = new Date();
+        return this.assurance.getDate_expiration().after(now);
+
+    }
+    public static Date StringToDate(String s){
+
+        Date result = null;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            result  = dateFormat.parse(s);
+        }
+
+        catch(ParseException e){
+            e.printStackTrace();
+
+        }
+        return result ;
+    }
+    public static void main(String[] args) {
+
+        Date date;
+        Assurance assurance=new Assurance(1, date = StringToDate("2022-04-28 20:03:00"));
+        Client client=new Client( "JH66346", "Mohamed", "Khoubach", "male", "0623598522",1002,"admin","admin","ESTK",assurance);
+        System.out.println(client.verifierAssurance());
     }
 }
