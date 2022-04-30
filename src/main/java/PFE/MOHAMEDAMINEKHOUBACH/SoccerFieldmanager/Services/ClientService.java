@@ -1,21 +1,26 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.ClientRepo;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model.Assurance;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientService {
-    private final ClientRepo clientRepo;
 
+   private  final ClientRepo clientRepo;
+
+    @Autowired
     public ClientService(ClientRepo clientRepo) {
         this.clientRepo = clientRepo;
     }
+    public List<Client> findAll(){
+        return this.clientRepo.findAll();
+    }
 
+   /*
     public boolean createAccount(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String login, String password, String etablissement, Assurance assurance) {
     Client client = new Client(cin,nom,prenom,sexe,numtel,numapogee,login,password,etablissement,assurance);
         return client.verifierAssurance();
@@ -48,7 +53,7 @@ public class ClientService {
     public void deleteClient(Long id){
         clientRepo.deleteClientById(id);
     }
-
+*/
 
 
 

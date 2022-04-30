@@ -2,6 +2,8 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+
 @Table
 @Entity
 public class Reservation  implements Serializable {
@@ -10,22 +12,32 @@ public class Reservation  implements Serializable {
     @Column(nullable = false,updatable = false)
     private long id;
     private String reference;
-    private String date_reservation;
+    // private String date_reservation;
+    /**
+     * Pour les nom des variables il est préférable de les écrire 'camelCase'
+     * et la date doit etre de type DATE
+     */
+    private Date dateReservation;
 
-    @ManyToOne
+    /**
+    Un client peut effectuer plusieur réservation
+    Une réservation peut etre effectuer par un seul client donc l'anottation utilisé ici c'est OneToOne
+     */
+    // @ManyToOne
+    @OneToOne
     private Client client;
     @OneToOne
     private Terrain terrain;
 
 
-
     public Reservation() {}
 
-    public Reservation(long id, String reference, String date_reservation) {
+    public Reservation(long id, String reference, Date dateReservation, Client client, Terrain terrain) {
         this.id = id;
         this.reference = reference;
-        this.date_reservation = date_reservation;
-
+        this.dateReservation = dateReservation;
+        this.client = client;
+        this.terrain = terrain;
     }
 
     public long getId() {
@@ -44,21 +56,27 @@ public class Reservation  implements Serializable {
         this.reference = reference;
     }
 
-    public String getDate_reservation() {
-        return date_reservation;
+    public Date getDateReservation() {
+        return dateReservation;
     }
 
-    public void setDate_reservation(String date_reservation) {
-        this.date_reservation = date_reservation;
+    public void setDateReservation(Date dateReservation) {
+        this.dateReservation = dateReservation;
     }
 
+    public Client getClient() {
+        return client;
+    }
 
-    @Override
-    public String toString(){
-        return "Reservation{" +
-                "id=" +id +
-                ", date reservation='" + date_reservation + '\'' +
-                ", reference='" + reference + '\'' +
-                '}';
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
     }
 }

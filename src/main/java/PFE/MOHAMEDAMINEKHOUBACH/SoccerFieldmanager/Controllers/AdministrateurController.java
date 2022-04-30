@@ -18,9 +18,9 @@ public class AdministrateurController {
     public AdministrateurController(AdminService adminService){
         this.adminService = adminService;
     }
-    @GetMapping
+   /* @GetMapping
     public List<Personnel> getAdmins(){
         return adminService.getAdmins();
-    }
+    }*/
 
 }
