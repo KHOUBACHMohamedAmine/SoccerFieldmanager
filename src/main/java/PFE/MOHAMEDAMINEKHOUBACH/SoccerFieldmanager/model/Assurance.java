@@ -1,23 +1,36 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Assurance {
+
+@Entity
+public class Assurance implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
     private int num;
-    private Date date_expiration;
+    private Date dateExpiration;
 
     @OneToOne
-    private Client client;
-
-
-    public Assurance(int num, Date date_expiration) {
-        this.num = num;
-        this.date_expiration = date_expiration;
-    }
+     private Client client;
 
     public Assurance() {}
+
+    public Assurance(Long id, int num, Date dateExpiration) {
+        this.id = id;
+        this.num = num;
+        this.dateExpiration = dateExpiration;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getNum() {
         return num;
@@ -27,11 +40,11 @@ public class Assurance {
         this.num = num;
     }
 
-    public Date getDate_expiration() {
-        return date_expiration;
+    public Date getDateExpiration() {
+        return dateExpiration;
     }
 
-    public void setDate_expiration(Date date_expiration) {
-        this.date_expiration = date_expiration;
+    public void setDateExpiration(Date dateExpiration) {
+        this.dateExpiration = dateExpiration;
     }
 }

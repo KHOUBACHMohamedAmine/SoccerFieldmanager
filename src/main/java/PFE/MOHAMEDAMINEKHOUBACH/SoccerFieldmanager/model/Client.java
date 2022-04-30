@@ -1,4 +1,4 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,12 +9,16 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table
-public class Client  extends Personnel implements Serializable  {
+public class Client implements Serializable  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    private String cin;
+    private String nom;
+    private String prenom;
+    private String sexe;
+    private String numtel;
     private long numapogee;
     private String login;
     private String password;
@@ -27,20 +31,15 @@ public class Client  extends Personnel implements Serializable  {
     public Client() {}
 
     public Client(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String login, String password, String etablissement,Assurance assurance) {
-        super(cin, nom, prenom, sexe, numtel);
         this.assurance=assurance;
+        this.cin=cin;
+        this.nom=nom;
+        this.prenom=prenom;
+        this.sexe=sexe;
+        this.numtel=numtel;
         this.numapogee = numapogee;
         this.login = login;
         this.password = password;
-        this.etablissement = etablissement;
-    }
-
-
-    public String getEtablissement() {
-        return etablissement;
-    }
-
-    public void setEtablissement(String etablissement) {
         this.etablissement = etablissement;
     }
 
@@ -52,20 +51,52 @@ public class Client  extends Personnel implements Serializable  {
         this.id = id;
     }
 
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getNumtel() {
+        return numtel;
+    }
+
+    public void setNumtel(String numtel) {
+        this.numtel = numtel;
+    }
+
     public long getNumapogee() {
         return numapogee;
     }
 
     public void setNumapogee(long numapogee) {
         this.numapogee = numapogee;
-    }
-
-    public Assurance getAssurance() {
-        return assurance;
-    }
-
-    public void setAssurance(Assurance assurance) {
-        this.assurance = assurance;
     }
 
     public String getLogin() {
@@ -84,16 +115,43 @@ public class Client  extends Personnel implements Serializable  {
         this.password = password;
     }
 
+    public String getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(String etablissement) {
+        this.etablissement = etablissement;
+    }
+
+    public Assurance getAssurance() {
+        return assurance;
+    }
+
+    public void setAssurance(Assurance assurance) {
+        this.assurance = assurance;
+    }
+
+    /*
+    La class ne contient que les attributs les constructeurs, les getteres et les setters et la méthode toString, et equals and hashCode
+     */
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Client{" +
-                "id=" +id +
-                ", numapogee='" + numapogee + '\'' +
-                ", prenom='" + this.getPrenom() + '\'' +
-                ", nom='" + this.getNom() + '\'' +
+                "id=" + id +
+                ", cin='" + cin + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", numtel='" + numtel + '\'' +
+                ", numapogee=" + numapogee +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", etablissement='" + etablissement + '\'' +
+                ", assurance=" + assurance +
                 '}';
     }
-    public boolean verifierAssurance(){
+ /*   public boolean verifierAssurance(){
         Date now = new Date();
         return this.assurance.getDate_expiration().after(now);
 
@@ -118,5 +176,5 @@ public class Client  extends Personnel implements Serializable  {
         Assurance assurance=new Assurance(1, date = StringToDate("2022-04-28 20:03:00"));
         Client client=new Client( "JH66346", "Mohamed", "Khoubach", "male", "0623598522",1002,"admin","admin","ESTK",assurance);
         System.out.println(client.verifierAssurance());
-    }
+    }*/
 }
