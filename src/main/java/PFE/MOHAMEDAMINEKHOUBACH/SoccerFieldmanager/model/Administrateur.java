@@ -1,11 +1,11 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 
 
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
 @Table
-public class Administrateur implements Serializable {
+public class Administrateur extends Personnel implements Serializable {
 
 
 
@@ -14,35 +14,26 @@ public class Administrateur implements Serializable {
     private long id;
     private String login;
     private String password;
-    private String cin;
-    private String nom;
-    private String prenom;
-    private String sexe;
-    private String numTel;
 
 
-    public Administrateur(long id, String login, String password, String cin, String nom, String prenom, String sexe, String numTel) {
-        this.id = id;
+    public Administrateur() {}
+
+    public Administrateur(String cin, String nom, String prenom, String sexe, String numtel, String login, String password) {
+        super(cin, nom, prenom, sexe, numtel);
         this.login = login;
         this.password = password;
-        this.cin = cin;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.sexe = sexe;
-        this.numTel = numTel;
     }
 
-    public Administrateur() {
 
+
+    public Administrateur(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
+
 
     public String getLogin() {
         return login;
@@ -60,43 +51,12 @@ public class Administrateur implements Serializable {
         this.password = password;
     }
 
-    public String getCin() {
-        return cin;
+    @Override
+    public String toString(){
+        return "Administrateur{" +
+                ", Prenom='" + this.getPrenom() + '\'' +
+                ", Nom='" + this.getNom() + '\'' +
+                '}';
     }
 
-    public void setCin(String cin) {
-        this.cin = cin;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getSexe() {
-        return sexe;
-    }
-
-    public void setSexe(String sexe) {
-        this.sexe = sexe;
-    }
-
-    public String getNumTel() {
-        return numTel;
-    }
-
-    public void setNumTel(String numTel) {
-        this.numTel = numTel;
-    }
 }

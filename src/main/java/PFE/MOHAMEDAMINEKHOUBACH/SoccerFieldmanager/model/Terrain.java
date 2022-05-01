@@ -1,28 +1,23 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-/**
-Il n y a pas besoin de d'ajouter l'annotation @Table
-à partir de @Entity JPA ce charge de mapper la class en une table dans la base de données
- */
-// @Table
-public class Terrain implements Serializable{
+@Table
+public class Terrain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String reference;
     private String etat;
 
-    public Terrain() {
-    }
-
-    public Terrain(long id, String reference, String etat) {
-        this.id = id;
+    public Terrain(String reference, String etat) {
+        super();
         this.reference = reference;
         this.etat = etat;
     }
+
+    public Terrain() {}
 
     public long getId() {
         return id;
@@ -47,13 +42,13 @@ public class Terrain implements Serializable{
     public void setEtat(String etat) {
         this.etat = etat;
     }
-
     @Override
-    public String toString() {
+    public String toString(){
         return "Terrain{" +
-                "id=" + id +
-                ", reference='" + reference + '\'' +
+                "id=" +id +
                 ", etat='" + etat + '\'' +
+                ", reference='" + reference + '\'' +
+
                 '}';
     }
 }
