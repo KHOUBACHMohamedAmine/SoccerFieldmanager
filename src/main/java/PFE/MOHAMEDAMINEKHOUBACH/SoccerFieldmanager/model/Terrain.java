@@ -3,21 +3,26 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-@Table
-public class Terrain {
+/**
+Il n y a pas besoin de d'ajouter l'annotation @Table
+à partir de @Entity JPA ce charge de mapper la class en une table dans la base de données
+ */
+// @Table
+public class Terrain implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String reference;
     private String etat;
 
-    public Terrain(String reference, String etat) {
-        super();
+    public Terrain() {
+    }
+
+    public Terrain(long id, String reference, String etat) {
+        this.id = id;
         this.reference = reference;
         this.etat = etat;
     }
-
-    public Terrain() {}
 
     public long getId() {
         return id;
@@ -42,13 +47,13 @@ public class Terrain {
     public void setEtat(String etat) {
         this.etat = etat;
     }
-    @Override
-    public String toString(){
-        return "Terrain{" +
-                "id=" +id +
-                ", etat='" + etat + '\'' +
-                ", reference='" + reference + '\'' +
 
+    @Override
+    public String toString() {
+        return "Terrain{" +
+                "id=" + id +
+                ", reference='" + reference + '\'' +
+                ", etat='" + etat + '\'' +
                 '}';
     }
 }

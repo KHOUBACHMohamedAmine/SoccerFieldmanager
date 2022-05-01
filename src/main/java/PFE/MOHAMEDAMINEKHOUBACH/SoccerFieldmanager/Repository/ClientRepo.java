@@ -1,16 +1,29 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository;
 
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
 
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
 public interface ClientRepo extends JpaRepository<Client,Long> {
+    void deleteClientById(Long id);
 
-    List<Client> findBySexe(String sexe);
-    List<Client> findByEtablissement(String etablissement);
-    Client findByCin(String cin);
+    Optional<Client> findByIdEquals(long id);
+
+    List<Client> findByCinContains(String cin);
+
+    List<Client> findByNomContains(String nom);
+
+    List<Client> findBySexeContains(String sexe);
+
+    List<Client> findByEtablissementContains(String etablissement);
+
+    List<Client> findByNumapogeeEquals(long numapogee);
+
+
+
+
 }

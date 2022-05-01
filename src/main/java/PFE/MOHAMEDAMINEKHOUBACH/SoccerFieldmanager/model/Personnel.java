@@ -13,7 +13,7 @@ public class Personnel implements Serializable {
     private String nom;
     private String prenom;
     private String sexe;
-    private String numtel;
+    private String numTel;
 
 
 
@@ -21,13 +21,13 @@ public class Personnel implements Serializable {
     public Personnel() {
     }
 
-    public Personnel(String cin, String nom, String prenom, String sexe, String numtel) {
+    public Personnel(String cin, String nom, String prenom, String sexe, String numTel) {
         super();
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
-        this.numtel = numtel;
+        this.numTel = numTel;
     }
 
 
@@ -66,11 +66,11 @@ public class Personnel implements Serializable {
     }
 
     public String getNumtel() {
-        return numtel;
+        return numTel;
     }
 
-    public void setNumtel(String numtel) {
-        this.numtel = numtel;
+    public void setNumtel(String numTel) {
+        this.numTel = numTel;
     }
     @Override
     public String toString(){
@@ -79,7 +79,7 @@ public class Personnel implements Serializable {
                 ", prenom='" + prenom + '\'' +
                 ", cin='" + cin + '\'' +
                 ", sexe='" + sexe + '\'' +
-                ", numtel='" + numtel + '\'' +
+                ", numtel='" + numTel + '\'' +
 
                 '}';
     }
