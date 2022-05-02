@@ -7,6 +7,7 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.ClientServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +19,7 @@ public class ClientServiceImpl implements ClientService {
     public ClientServiceImpl(ClientRepo clientRepo) {
         this.clientRepo = clientRepo;
     }
-    public List<Client> findAll(){
-        return this.clientRepo.findAll();
-    }
+
 
  @Override
  public Client save(Client client) {
@@ -45,7 +44,6 @@ public class ClientServiceImpl implements ClientService {
   existingClient.setNom(client.getNom());
   existingClient.setPrenom(client.getPrenom());
   existingClient.setCin(client.getCin());
-  existingClient.setAssurance(client.getAssurance());
   existingClient.setEtablissement(client.getEtablissement());
   existingClient.setNumtel(client.getNumtel());
   existingClient.setNumapogee(client.getNumapogee());
@@ -64,18 +62,24 @@ public class ClientServiceImpl implements ClientService {
  }
 
  @Override
- public Client getClientByCin(String cin) {
-  return clientRepo.findByCin(cin);
+ public List<Client> getClientByCin(String cin) {
+     List<Client> clientsfounded=new ArrayList<Client>(clientRepo.findByCin(cin));
+  if (clientsfounded.isEmpty()) throw new RessourceNotFound("Client","Cin",cin);
+  else return clientsfounded ;
  }
 
  @Override
  public List<Client> getClientBySexe(String sexe) {
-  return clientRepo.findBySexe(sexe);
+  List<Client> clientsfounded=new ArrayList<Client>(clientRepo.findBySexe(sexe));
+  if (clientsfounded.isEmpty()) throw new RessourceNotFound("Client","Sexe",sexe);
+  else return clientsfounded ;
  }
 
  @Override
  public List<Client> getClientByEtablissement(String etablissement) {
-  return clientRepo.findByEtablissement(etablissement);
+     List<Client> clientsfounded=new ArrayList<Client>(clientRepo.findByEtablissement(etablissement));
+     if (clientsfounded.isEmpty()) throw new RessourceNotFound("Client","Etablissement",etablissement);
+     else return clientsfounded ;
  }
 
 

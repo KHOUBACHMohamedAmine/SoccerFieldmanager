@@ -1,5 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ClientServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -28,29 +29,60 @@ public class ClientController {
     }
     @GetMapping("/id/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable("id") Long id){
-        return new ResponseEntity<Client>(clientServiceImpl.getClientById(id),HttpStatus.OK);
+
+        try{
+            return new ResponseEntity(clientServiceImpl.getClientById(id),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping("/sexe/{sexe}")
-    public List<Client> getClientById(@PathVariable("sexe") String sexe){
-        return clientServiceImpl.getClientBySexe(sexe);
+    public ResponseEntity getClientById(@PathVariable("sexe") String sexe){
+        try{
+            return new ResponseEntity(clientServiceImpl.getClientBySexe(sexe),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+
     }
     @GetMapping("/cin/{cin}")
-    public ResponseEntity<Client> getClientByCin(@PathVariable("cin") String cin){
-        return new ResponseEntity<Client>(clientServiceImpl.getClientByCin(cin),HttpStatus.OK);
+    public ResponseEntity getClientByCin(@PathVariable("cin") String cin){
+        try{
+            return new ResponseEntity(clientServiceImpl.getClientByCin(cin),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
     }
     @GetMapping("/etablissement/{etablissement}")
-    public List<Client> getClientByEtablisssement(@PathVariable("etablissement") String etablissement){
-        return clientServiceImpl.getClientByEtablissement(etablissement);
+    public ResponseEntity getClientByEtablisssement(@PathVariable("etablissement") String etablissement){
+        try{
+            return new ResponseEntity(clientServiceImpl.getClientByEtablissement(etablissement),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
 
     }
      @PutMapping("/update/id/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable("id") Long id,@RequestBody Client client){
-        return new ResponseEntity<Client>(clientServiceImpl.updateClient(client,id),HttpStatus.OK);
+    public ResponseEntity updateClient(@PathVariable("id") long id,@RequestBody Client client){
+        try {
+            clientServiceImpl.updateClient(client,id);
+            return new ResponseEntity(client,HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
      }
      @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteClientById(@PathVariable("id") Long id){
-        clientServiceImpl.deleteById(id);
-        return new ResponseEntity<String>("Client deleted Succesfully",HttpStatus.OK);
+    public ResponseEntity deleteClientById(@PathVariable("id") Long id){
+       try{
+           clientServiceImpl.deleteById(id);
+           return new ResponseEntity<String>("Client deleted Succesfully",HttpStatus.OK);
+       }catch (RessourceNotFound r){
+           return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+       }
+
      }
 
 }

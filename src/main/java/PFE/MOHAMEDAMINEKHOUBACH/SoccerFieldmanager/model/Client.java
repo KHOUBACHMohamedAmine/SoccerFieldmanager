@@ -1,4 +1,4 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,19 +24,9 @@ public class Client implements Serializable  {
     private String password;
     private String etablissement;
 
-    @OneToOne
-    private Assurance assurance;
-
 
     public Client() {}
 
-    public Client(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String login, String password, String etablissement,Assurance assurance) {
-        this.assurance=assurance;
-        this.numapogee = numapogee;
-        this.login = login;
-        this.password = password;
-        this.etablissement = etablissement;
-    }
 
     public long getId() {
         return id;
@@ -118,14 +108,6 @@ public class Client implements Serializable  {
         this.etablissement = etablissement;
     }
 
-    public Assurance getAssurance() {
-        return assurance;
-    }
-
-    public void setAssurance(Assurance assurance) {
-        this.assurance = assurance;
-    }
-
     /*
     La class ne contient que les attributs les constructeurs, les getteres et les setters et la méthode toString, et equals and hashCode
      */
@@ -143,7 +125,6 @@ public class Client implements Serializable  {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", etablissement='" + etablissement + '\'' +
-                ", assurance=" + assurance +
                 '}';
     }
  /*   public boolean verifierAssurance(){

@@ -10,7 +10,7 @@ List<Client> getAllClients();
 Client getClientById(long id);
 Client updateClient(Client client,long id);
 void deleteById(long id);
-Client getClientByCin(String cin);
+List<Client> getClientByCin(String cin);
 List<Client> getClientBySexe(String sexe);
 List<Client> getClientByEtablissement(String etablissement);
 

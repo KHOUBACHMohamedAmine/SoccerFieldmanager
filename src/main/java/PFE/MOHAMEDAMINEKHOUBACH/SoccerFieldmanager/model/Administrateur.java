@@ -4,7 +4,6 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-@Table
 public class Administrateur implements Serializable {
 
 
@@ -14,14 +13,17 @@ public class Administrateur implements Serializable {
     private long id;
     private String login;
     private String password;
+    @Column(nullable = false, unique = true)
     private String cin;
     private String nom;
     private String prenom;
     private String sexe;
-    private String numTel;
+    private String numtel;
 
+    public Administrateur() {
+    }
 
-    public Administrateur(long id, String login, String password, String cin, String nom, String prenom, String sexe, String numTel) {
+    public Administrateur(long id, String login, String password, String cin, String nom, String prenom, String sexe, String numtel) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -29,11 +31,7 @@ public class Administrateur implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
-        this.numTel = numTel;
-    }
-
-    public Administrateur() {
-
+        this.numtel = numtel;
     }
 
     public long getId() {
@@ -92,11 +90,25 @@ public class Administrateur implements Serializable {
         this.sexe = sexe;
     }
 
-    public String getNumTel() {
-        return numTel;
+    public String getNumtel() {
+        return numtel;
     }
 
-    public void setNumTel(String numTel) {
-        this.numTel = numTel;
+    public void setNumtel(String numtel) {
+        this.numtel = numtel;
+    }
+
+    @Override
+    public String toString() {
+        return "Administrateur{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", cin='" + cin + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", numtel='" + numtel + '\'' +
+                '}';
     }
 }
