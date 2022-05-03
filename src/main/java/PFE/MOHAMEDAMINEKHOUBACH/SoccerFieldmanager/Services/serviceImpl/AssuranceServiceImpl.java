@@ -1,6 +1,7 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Assurance;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.AssuranceRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.AssuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,35 @@ public class AssuranceServiceImpl implements AssuranceService {
     public AssuranceServiceImpl(AssuranceRepo assuranceRepo) {
         this.assuranceRepo = assuranceRepo;
     }
+
     @Override
     public Assurance getAssuranceByClient_Id(long id) {
         Assurance assurance = assuranceRepo.findByClient_Id(id);
         if (assurance!=null) return assurance;
-        else throw new RuntimeException("Client non assuré ");
+        else {
+            throw new RuntimeException("Client non assuré");
+        }
+
     }
 
     @Override
-    public boolean verifierValabilite(Assurance assurance) {
-        Date date=new Date();
-        if (assurance.getDate_expiration().before(date)) return true;
-        else return false;
+    public boolean verifierAssuranceByClient_Id(long id) {
+        Assurance assurance = assuranceRepo.findByClient_Id(id);
+        if (assurance!=null) return true;
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean verifierValabilite(Assurance assurance, Reservation reservation) {
+        Date date=reservation.getDate();
+        if (assurance.getDate_expiration().compareTo(date)>0) {
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 }

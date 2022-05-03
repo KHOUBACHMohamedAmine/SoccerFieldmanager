@@ -26,11 +26,17 @@ public class ReservationServiceImpl implements ReservationService {
     }
     @Override
     public Reservation save(Reservation reservation) {
+        Assurance assurance=assuranceServiceImpl.getAssuranceByClient_Id(reservation.getClient().getId());
+            if (assuranceServiceImpl.verifierValabilite(assurance,reservation)){
+                if (assuranceServiceImpl.verifierAssuranceByClient_Id(reservation.getClient().getId())){
+                    return reservationRepo.save(reservation);
+                }
 
-            Assurance assurancefounded= assuranceServiceImpl.getAssuranceByClient_Id(reservation.getClient().getId()) ;
-            if (assuranceServiceImpl.verifierValabilite(assurancefounded) || assurancefounded!=null ) return reservationRepo.save(reservation);
-            else throw new RuntimeException("veuillez régler votre assurance : assurance éxpirée ou client non assuré");
-     }
+            }
+            else throw new RessourceNotFound("Assurance","Client avec l'ID",reservation.getClient().getId());
+
+        return null;
+    }
 
     @Override
     public List<Reservation> getAllReservations() {
