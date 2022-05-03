@@ -1,4 +1,4 @@
-package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.model;
+package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
 
 import javax.persistence.*;

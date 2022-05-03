@@ -46,11 +46,11 @@ public class Reservation  implements Serializable {
         this.reference = reference;
     }
 
-    public Date getDate_reservation() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate_reservation(Date date_reservation) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

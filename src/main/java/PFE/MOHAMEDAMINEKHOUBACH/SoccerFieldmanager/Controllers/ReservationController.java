@@ -1,6 +1,7 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ReservationServiceImpl;
@@ -22,7 +23,7 @@ public class ReservationController {
         this.reservationServiceImpl = reservationServiceImpl;
     }
     @PostMapping("/")
-    public ResponseEntity<Reservation> saveTerrain(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation){
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
     @GetMapping("/")
@@ -58,6 +59,27 @@ public class ReservationController {
         }
 
     }
+    @GetMapping("/client/id/{id}")
+    public ResponseEntity getReservationByClientId(@PathVariable("id") long id){
+        try{
+            return new ResponseEntity(reservationServiceImpl.getReservationByClientId(id),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+
+    }
+    @GetMapping("/terrain/id/{id}")
+    public ResponseEntity getReservationByTerrainId(@PathVariable("id") long id){
+        try{
+            return new ResponseEntity(reservationServiceImpl.getReservationByTerrainId(id),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+
+    }
+
     @PutMapping("/update/id/{id}")
     public ResponseEntity updateReservation(@PathVariable("id") long id,@RequestBody Reservation reservation){
         try {
