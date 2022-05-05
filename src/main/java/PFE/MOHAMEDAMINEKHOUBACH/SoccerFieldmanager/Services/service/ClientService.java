@@ -14,4 +14,5 @@ List<Client> getClientByCin(String cin);
 List<Client> getClientBySexe(String sexe);
 List<Client> getClientByEtablissement(String etablissement);
 
+
 }

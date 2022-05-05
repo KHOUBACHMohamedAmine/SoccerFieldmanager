@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface AssuranceRepo extends JpaRepository<Assurance,Long> {
-    Assurance findByClient_Id(long id);
+    Assurance findByClient_Cin(String cin);
+
 }

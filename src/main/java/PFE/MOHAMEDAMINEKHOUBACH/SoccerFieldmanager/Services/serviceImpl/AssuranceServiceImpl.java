@@ -1,7 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Assurance;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.AssuranceRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.AssuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,8 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
-    public Assurance getAssuranceByClient_Id(long id) {
-        Assurance assurance = assuranceRepo.findByClient_Id(id);
+    public Assurance getAssuranceByClient_Cin(String cin) {
+        Assurance assurance = assuranceRepo.findByClient_Cin(cin);
         if (assurance!=null) return assurance;
         else {
             throw new RuntimeException("Client non assuré");
@@ -29,8 +28,8 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
-    public boolean verifierAssuranceByClient_Id(long id) {
-        Assurance assurance = assuranceRepo.findByClient_Id(id);
+    public boolean verifierAssuranceByClient_Cin(String cin) {
+        Assurance assurance = assuranceRepo.findByClient_Cin(cin);
         if (assurance!=null) return true;
         else {
             return false;
@@ -38,9 +37,9 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
-    public boolean verifierValabilite(Assurance assurance, Reservation reservation) {
-        Date date=reservation.getDate();
-        if (assurance.getDate_expiration().compareTo(date)>0) {
+    public boolean verifierValabilite(Date dateExpirationAssurance, Date dateReservation) {
+
+        if (dateExpirationAssurance.compareTo(dateReservation)>0) {
             return true;
         }
         else {

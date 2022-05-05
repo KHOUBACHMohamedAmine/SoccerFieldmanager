@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +24,10 @@ public class ReservationController {
         this.reservationServiceImpl = reservationServiceImpl;
     }
     @PostMapping("/")
-    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> save(@RequestBody Reservation reservation){
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
+
     @GetMapping("/")
     public List<Reservation> getAllReservations(){
         return  reservationServiceImpl.getAllReservations();
@@ -80,22 +82,44 @@ public class ReservationController {
 
     }
 
-    @PutMapping("/update/id/{id}")
-    public ResponseEntity updateReservation(@PathVariable("id") long id,@RequestBody Reservation reservation){
+    @PutMapping("/update")
+    public ResponseEntity updateReservation(@RequestBody Reservation reservation){
         try {
-            reservationServiceImpl.updateReservation(reservation,id);
+            reservationServiceImpl.updateReservation(reservation);
             return new ResponseEntity(reservation,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
+        catch (RuntimeException r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.CONFLICT);
+        }
 
     }
+    @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteReservationById(@PathVariable("id") Long id){
         try {
             reservationServiceImpl.deleteById(id);
             return new ResponseEntity<String>("Reservation deleted Succesfully",HttpStatus.OK);
         }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity getReservationByStatus(@PathVariable int status) {
+        return new ResponseEntity(reservationServiceImpl.getReservationByStatus(status), HttpStatus.OK);
+    }
+
+    @Transactional
+    @PutMapping("/confirm")
+    public ResponseEntity confirmerReservation(@RequestBody Reservation reservation) {
+        try{
+            return new ResponseEntity(reservationServiceImpl.confirmerReservation(reservation), HttpStatus.OK);
+        }catch (RessourceNotFound r)
+        {
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
 
