@@ -1,7 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ReservationServiceImpl;

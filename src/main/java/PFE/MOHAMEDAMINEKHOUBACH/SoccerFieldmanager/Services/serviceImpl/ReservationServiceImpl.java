@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
                     return reservationRepo.save(reservation);
                 }
             }
-            else throw new RessourceNotFound("Assurance","Client avec l'ID",reservation.getClient().getId());
+            else throw new RessourceNotFound("Assurance","User avec l'ID",reservation.getClient().getId());
 
         return null;
     }

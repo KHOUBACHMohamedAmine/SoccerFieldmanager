@@ -1,8 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service;
 
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 
 import java.util.Date;
 import java.util.List;

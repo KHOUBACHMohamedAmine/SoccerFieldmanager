@@ -12,7 +12,7 @@ public class Assurance implements Serializable {
     private Date date_expiration;
 
     @OneToOne
-    private Client client;
+    private User client;
 
 
     public Assurance(int num, Date date_expiration) {
@@ -30,11 +30,11 @@ public class Assurance implements Serializable {
         this.id = id;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

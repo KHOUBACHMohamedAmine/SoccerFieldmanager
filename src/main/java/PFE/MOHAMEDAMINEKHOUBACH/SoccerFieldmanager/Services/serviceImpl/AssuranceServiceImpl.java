@@ -22,7 +22,7 @@ public class AssuranceServiceImpl implements AssuranceService {
         Assurance assurance = assuranceRepo.findByClient_Cin(cin);
         if (assurance!=null) return assurance;
         else {
-            throw new RuntimeException("Client non assuré");
+            throw new RuntimeException("User non assuré");
         }
 
     }

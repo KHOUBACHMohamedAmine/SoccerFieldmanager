@@ -1,15 +1,11 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Client implements Serializable  {
+public class User implements Serializable  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,10 +19,39 @@ public class Client implements Serializable  {
     private String login;
     private String password;
     private String etablissement;
+    private Boolean isEnabled = true;
+    @OneToOne
+    private Role role ;
 
+    public Role getRole() {
+        return role;
+    }
 
-    public Client() {}
+    public void setRoles(Role role) {
+        this.role = role;
+    }
 
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public User() {}
+
+    public User(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String login, String password, String etablissement) {
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.numtel = numtel;
+        this.numapogee = numapogee;
+        this.login = login;
+        this.password = password;
+        this.etablissement = etablissement;
+    }
 
     public long getId() {
         return id;
@@ -114,7 +139,7 @@ public class Client implements Serializable  {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "User{" +
                 "id=" + id +
                 ", cin='" + cin + '\'' +
                 ", nom='" + nom + '\'' +
@@ -127,6 +152,8 @@ public class Client implements Serializable  {
                 ", etablissement='" + etablissement + '\'' +
                 '}';
     }
+
+
  /*   public boolean verifierAssurance(){
         Date now = new Date();
         return this.assurance.getDate_expiration().after(now);
@@ -150,7 +177,7 @@ public class Client implements Serializable  {
 
         Date date;
         Assurance assurance=new Assurance(1, date = StringToDate("2022-04-28 20:03:00"));
-        Client client=new Client( "JH66346", "Mohamed", "Khoubach", "male", "0623598522",1002,"admin","admin","ESTK",assurance);
+        User client=new User( "JH66346", "Mohamed", "Khoubach", "male", "0623598522",1002,"admin","admin","ESTK",assurance);
         System.out.println(client.verifierAssurance());
     }*/
 }

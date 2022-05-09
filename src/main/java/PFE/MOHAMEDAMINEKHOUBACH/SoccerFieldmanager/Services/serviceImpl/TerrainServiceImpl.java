@@ -1,8 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.ClientRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.TerrainRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.TerrainService;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class TerrainServiceImpl implements TerrainService {
     private  final TerrainRepo terrainRepo;

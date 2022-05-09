@@ -56,14 +56,14 @@ public class SoccerFieldmanagerApplication {
 	 *   - One Reservation belong to one Terrain
 	 *   - A Terrain has 1..* Reservation
 	 *   ==> so here we use the injection of Terran in reservation by the @OneToOne annotation
-	 *   - A Reservation was created by one Client
-	 *   - A Client can make 1..* of Reservation
+	 *   - A Reservation was created by one User
+	 *   - A User can make 1..* of Reservation
 	 	see : https://www.youtube.com/watch?v=f5bdUjEIbrg
 	          https://www.youtube.com/watch?v=9SGDpanrc8U
 	 *	Inheritance:
 	 *	A client is a Personnel
 	 *	3- refer to https://www.youtube.com/watch?v=7dBijbBdgbc and https://gayerie.dev/epsi-b3-orm/javaee_orm/jpa_inheritance.html
-	 * 	to understand the inheritance between entities, and to implement the correct way of inheritance between ( Client, Personnel, and administrateur)
+	 * 	to understand the inheritance between entities, and to implement the correct way of inheritance between ( User, Personnel, and administrateur)
 	 **/
 
 }

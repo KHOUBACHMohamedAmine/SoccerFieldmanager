@@ -18,7 +18,7 @@ public class Reservation  implements Serializable {
 
 
     @ManyToOne
-    private Client client;
+    private User client;
     @OneToOne
     private Terrain terrain;
 
@@ -26,7 +26,7 @@ public class Reservation  implements Serializable {
 
     public Reservation() {}
 
-    public Reservation(String reference, Date date, int status, Client client, Terrain terrain) {
+    public Reservation(String reference, Date date, int status, User client, Terrain terrain) {
         this.reference = reference;
         this.date = date;
         this.status = status;
@@ -66,11 +66,11 @@ public class Reservation  implements Serializable {
         this.date = date;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

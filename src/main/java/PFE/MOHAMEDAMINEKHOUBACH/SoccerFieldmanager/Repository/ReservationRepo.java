@@ -1,8 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository;
 
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
