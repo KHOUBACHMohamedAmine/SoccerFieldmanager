@@ -3,7 +3,8 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-public class Terrain implements Serializable{
+@Table
+public class Terrain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -11,6 +12,7 @@ public class Terrain implements Serializable{
     private String etat;
 
     public Terrain(String reference, String etat) {
+        super();
         this.reference = reference;
         this.etat = etat;
     }

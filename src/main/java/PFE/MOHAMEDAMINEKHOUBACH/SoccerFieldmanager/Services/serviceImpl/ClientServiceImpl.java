@@ -48,8 +48,8 @@ public class ClientServiceImpl implements ClientService {
   existingClient.setNumtel(client.getNumtel());
   existingClient.setNumapogee(client.getNumapogee());
   existingClient.setSexe(client.getSexe());
-  existingClient.setLogin(client.getLogin());
-  existingClient.setPassword(client.getPassword());
+  existingClient.getUser().setEmail((client.getUser().getEmail()));
+  existingClient.getUser().setPassword((client.getUser().getPassword()));
   clientRepo.save(existingClient);
   return existingClient;
  }

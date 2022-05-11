@@ -28,7 +28,7 @@ public class ReservationController {
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping("public/")
     public List<Reservation> getAllReservations(){
         return  reservationServiceImpl.getAllReservations();
     }

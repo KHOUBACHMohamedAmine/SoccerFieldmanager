@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:8090"})
-@RequestMapping("/api/v1/terrains")
+@RequestMapping("/api/v1/public/terrains")
 public class TerrainController {
     private TerrainServiceImpl terrainServiceImpl;
 

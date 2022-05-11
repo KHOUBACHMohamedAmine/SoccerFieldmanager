@@ -2,7 +2,9 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ClientServiceImpl;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNullApi;
@@ -11,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:8090"})
-@RequestMapping("/api/v1/clients")
+@RequestMapping("/api/v1/public/clients")
 public class ClientController {
     private ClientServiceImpl clientServiceImpl;
+    private UserServiceImpl userService;
 
     public ClientController( ClientServiceImpl clientServiceImpl) {
         super();
@@ -84,5 +87,9 @@ public class ClientController {
        }
 
      }
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> authenticate(@RequestBody User  user) {
+        return userService.authenticate(user);
+    }
 
 }

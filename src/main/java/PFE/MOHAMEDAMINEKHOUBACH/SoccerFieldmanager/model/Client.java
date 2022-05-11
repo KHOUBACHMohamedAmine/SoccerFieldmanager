@@ -20,10 +20,30 @@ public class Client implements Serializable  {
     private String sexe;
     private String numtel;
     private long numapogee;
-    private String login;
-    private String password;
+   // private String login;
+   // private String password;
     private String etablissement;
+    @OneToOne
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Client(String cin, String nom, String prenom, String sexe, String numtel, long numapogee, String etablissement, User user) {
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.numtel = numtel;
+        this.numapogee = numapogee;
+        this.etablissement = etablissement;
+        this.user = user;
+    }
 
     public Client() {}
 
@@ -84,9 +104,7 @@ public class Client implements Serializable  {
         this.numapogee = numapogee;
     }
 
-    public String getLogin() {
-        return login;
-    }
+   /* public String getLogin() {return login;}
 
     public void setLogin(String login) {
         this.login = login;
@@ -99,7 +117,7 @@ public class Client implements Serializable  {
     public void setPassword(String password) {
         this.password = password;
     }
-
+*/
     public String getEtablissement() {
         return etablissement;
     }
@@ -122,8 +140,6 @@ public class Client implements Serializable  {
                 ", sexe='" + sexe + '\'' +
                 ", numtel='" + numtel + '\'' +
                 ", numapogee=" + numapogee +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", etablissement='" + etablissement + '\'' +
                 '}';
     }
