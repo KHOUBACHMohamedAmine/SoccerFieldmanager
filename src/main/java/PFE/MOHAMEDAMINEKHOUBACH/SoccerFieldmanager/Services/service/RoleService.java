@@ -13,4 +13,6 @@ public interface RoleService {
 
 	public List<Role> findAll();
 
+    Role getDefaultRole();
 }
+

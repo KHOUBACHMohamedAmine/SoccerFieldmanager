@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8090"})
+@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
 @RequestMapping("/api/v1/reservations")
 public class ReservationController {
     private ReservationServiceImpl reservationServiceImpl;
@@ -28,7 +28,7 @@ public class ReservationController {
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
 
-    @GetMapping("public/")
+    @GetMapping("/")
     public List<Reservation> getAllReservations(){
         return  reservationServiceImpl.getAllReservations();
     }

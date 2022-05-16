@@ -3,7 +3,9 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -19,18 +21,19 @@ public class User implements Serializable {
 
 
 	private String email;
-	private String password;
+	private String passwordHash;
 	private Boolean isEnabled = true;
+	private LocalDateTime createdAt;
 	@ManyToMany
 	private List<Role> roles = new ArrayList<>();
 
 	public User() {
 	}
 
-	public User(Long id, String email, String password, Boolean isEnabled, List<Role> roles) {
+	public User(Long id, String email, String passwordHash, Boolean isEnabled, List<Role> roles) {
 		this.id = id;
 		this.email = email;
-		this.password = password;
+		this.passwordHash = passwordHash;
 		this.isEnabled = isEnabled;
 		this.roles = roles;
 	}
@@ -51,12 +54,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordHash(String password) {
+		this.passwordHash = passwordHash;
 	}
 
 	public Boolean getEnabled() {
@@ -67,7 +70,7 @@ public class User implements Serializable {
 		isEnabled = enabled;
 	}
 
-	public List<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
@@ -75,5 +78,11 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 }

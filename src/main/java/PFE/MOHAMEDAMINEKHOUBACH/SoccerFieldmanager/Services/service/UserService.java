@@ -2,6 +2,8 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service;
 
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security.LoginDTO;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security.Token;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -16,6 +18,6 @@ public interface UserService {
 
     public void addRoletouser(String email, String role);
 
-    ResponseEntity<?> authenticate(User user);
+    Token login(LoginDTO loginDTO);
 
 }

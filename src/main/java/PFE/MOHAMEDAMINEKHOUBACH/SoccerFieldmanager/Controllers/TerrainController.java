@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8090"})
-@RequestMapping("/api/v1/public/terrains")
+@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
+@RequestMapping("/api/v1/terrains")
 public class TerrainController {
     private TerrainServiceImpl terrainServiceImpl;
 

@@ -34,7 +34,9 @@ public class RoleServiceImpl implements RoleService {
 		return roleRepo.findByTitre(titre);
 	}
 
-
+	public Role getDefaultRole() {
+		return roleRepo.findByTitre("user");
+	}
 
 
 }
