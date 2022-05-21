@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -55,10 +56,11 @@ public class ClientServiceImpl implements ClientService {
  }
 
  @Override
- public void deleteById(long id) {
-  clientRepo.findById(id).orElseThrow(() ->
+ public Client deleteById(long id) {
+  Client client = clientRepo.findById(id).orElseThrow(() ->
           new RessourceNotFound("Client", "Id", id));
   clientRepo.deleteById(id);
+  return client;
  }
 
  @Override
@@ -81,6 +83,17 @@ public class ClientServiceImpl implements ClientService {
      if (clientsfounded.isEmpty()) throw new RessourceNotFound("Client","Etablissement",etablissement);
      else return clientsfounded ;
  }
+
+ @Override
+ public void archive(long id) {
+  clientRepo.archive(id);
+ }
+
+ @Override
+ public List<Client> getClientNonArchived() {
+  return clientRepo.findByIsArchivedFalse();
+ }
+
 
 
    /*

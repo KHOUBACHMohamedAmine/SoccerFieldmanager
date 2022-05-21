@@ -20,6 +20,7 @@ public class Client implements Serializable  {
     private String sexe;
     private String numtel;
     private long numapogee;
+    private boolean isArchived;
    // private String login;
    // private String password;
     private String etablissement;
@@ -47,6 +48,13 @@ public class Client implements Serializable  {
 
     public Client() {}
 
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
+    }
 
     public long getId() {
         return id;

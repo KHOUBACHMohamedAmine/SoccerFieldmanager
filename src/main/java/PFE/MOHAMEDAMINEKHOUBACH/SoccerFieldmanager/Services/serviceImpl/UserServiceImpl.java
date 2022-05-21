@@ -5,7 +5,6 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.UserRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.RoleService;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.UserService;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserDetailsServiceImpl;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.response.JwtResponse;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RoleService roleService;
 
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -42,15 +42,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int save(User user) {
+    public ResponseEntity save(User user) {
+        JwtUtil jwtUtil= new JwtUtil();
         User founderUser = userRepo.findByEmail(user.getEmail());
-        if (founderUser != null) {
-            return 0;
-        } else {
+        if (founderUser != null)throw new RuntimeException("Email already used !");
+            else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled(true);
             userRepo.save(user);
-            return 1;
+            UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(user.getEmail());
+            String jwt = JwtUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+
+
         }
     }
 

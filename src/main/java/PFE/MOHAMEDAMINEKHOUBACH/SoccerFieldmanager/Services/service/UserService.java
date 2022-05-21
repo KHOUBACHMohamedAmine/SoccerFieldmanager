@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    int save(User user);
+    ResponseEntity save(User user);
 
     List<User> findAll();
 

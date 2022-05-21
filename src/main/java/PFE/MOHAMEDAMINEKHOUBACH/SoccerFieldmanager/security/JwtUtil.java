@@ -1,5 +1,7 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security;
 
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class JwtUtil {
 	
-	public static final String SECRET_KEY = "GestindesSoutenanceYahyaChaima";
+	public static final String SECRET_KEY = "SoccerFieldManager";
 	public static final String ROLES_LABEL = "roles";
 	public static final String HEADER_TOKEN_SUFFIX = "Bearer ";
 	public static final String HTTP_AUTORISATION_HEADER = "Authorization";
@@ -50,7 +52,7 @@ public class JwtUtil {
 		return getAllClaims(token.replace(HEADER_TOKEN_SUFFIX, EMPTY_STRING));
 	}
 
-	public static boolean valiateToken(String token, UserDetails userDetails) {
+	public static boolean validateToken(String token, UserDetails userDetails) {
 		return getUserName(token).equals(userDetails.getUsername()) && !isTokenExpired(token);
 	}
 

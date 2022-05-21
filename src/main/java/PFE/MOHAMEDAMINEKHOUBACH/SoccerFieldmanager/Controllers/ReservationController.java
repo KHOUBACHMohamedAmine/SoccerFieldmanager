@@ -7,6 +7,7 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ReservationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -14,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8090"})
+@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
 @RequestMapping("/api/v1/reservations")
 public class ReservationController {
     private ReservationServiceImpl reservationServiceImpl;
@@ -27,11 +28,12 @@ public class ReservationController {
     public ResponseEntity<Reservation> save(@RequestBody Reservation reservation){
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
-
-    @GetMapping("public/")
+ //   @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/")
     public List<Reservation> getAllReservations(){
         return  reservationServiceImpl.getAllReservations();
     }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/id/{id}")
     public ResponseEntity<Terrain> getReservationById(@PathVariable("id") Long id){
 
@@ -42,7 +44,7 @@ public class ReservationController {
         }
     }
 
-
+ //   @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/date/{date}")
     public ResponseEntity getReservationByDate(@PathVariable("date") Date date){
         try{
@@ -52,6 +54,7 @@ public class ReservationController {
         }
 
     }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/reference/{reference}")
     public ResponseEntity getReservationByReference(@PathVariable("reference") String reference){
         try{
@@ -61,6 +64,7 @@ public class ReservationController {
         }
 
     }
+ //   @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/client/id/{id}")
     public ResponseEntity getReservationByClientId(@PathVariable("id") long id){
         try{
@@ -71,6 +75,7 @@ public class ReservationController {
 
 
     }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/terrain/id/{id}")
     public ResponseEntity getReservationByTerrainId(@PathVariable("id") long id){
         try{
@@ -81,7 +86,7 @@ public class ReservationController {
 
 
     }
-
+ //   @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity updateReservation(@RequestBody Reservation reservation){
         try {
@@ -96,6 +101,7 @@ public class ReservationController {
 
     }
     @Transactional
+ //   @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteReservationById(@PathVariable("id") Long id){
         try {
@@ -107,13 +113,14 @@ public class ReservationController {
 
     }
 
-
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/status/{status}")
     public ResponseEntity getReservationByStatus(@PathVariable int status) {
         return new ResponseEntity(reservationServiceImpl.getReservationByStatus(status), HttpStatus.OK);
     }
 
     @Transactional
+   // @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/confirm")
     public ResponseEntity confirmerReservation(@RequestBody Reservation reservation) {
         try{

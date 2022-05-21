@@ -8,12 +8,13 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserServ
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNullApi;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@CrossOrigin(origins = {"http://localhost:8090"})
-@RequestMapping("/api/v1/public/clients")
+@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
+@RequestMapping("/api/v1/clients")
 public class ClientController {
     private ClientServiceImpl clientServiceImpl;
     private UserServiceImpl userService;
@@ -26,10 +27,16 @@ public class ClientController {
     public ResponseEntity<Client> saveClient(@RequestBody Client client){
         return new ResponseEntity<Client>(clientServiceImpl.save(client),HttpStatus.CREATED);
     }
+   // @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/")
     public List<Client> getAllClients(){
         return  clientServiceImpl.getAllClients();
     }
+    @GetMapping("/nonArchived")
+    public List<Client> getClientsNonArchived(){
+        return  clientServiceImpl.getClientNonArchived();
+    }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/id/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable("id") Long id){
 
@@ -39,6 +46,7 @@ public class ClientController {
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+   // @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/sexe/{sexe}")
     public ResponseEntity getClientById(@PathVariable("sexe") String sexe){
         try{
@@ -49,6 +57,7 @@ public class ClientController {
 
 
     }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/cin/{cin}")
     public ResponseEntity getClientByCin(@PathVariable("cin") String cin){
         try{
@@ -58,6 +67,7 @@ public class ClientController {
         }
 
     }
+   // @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/etablissement/{etablissement}")
     public ResponseEntity getClientByEtablisssement(@PathVariable("etablissement") String etablissement){
         try{
@@ -67,6 +77,7 @@ public class ClientController {
         }
 
     }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
      @PutMapping("/update/id/{id}")
     public ResponseEntity updateClient(@PathVariable("id") long id,@RequestBody Client client){
         try {
@@ -77,19 +88,21 @@ public class ClientController {
         }
 
      }
+  //  @PreAuthorize("hasAuthority('ADMIN')")
      @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteClientById(@PathVariable("id") Long id){
        try{
-           clientServiceImpl.deleteById(id);
-           return new ResponseEntity<String>("Client deleted Succesfully",HttpStatus.OK);
+           Client client =clientServiceImpl.deleteById(id);
+           return new ResponseEntity<>(client,HttpStatus.OK);
        }catch (RessourceNotFound r){
            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
        }
 
      }
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> authenticate(@RequestBody User  user) {
-        return userService.authenticate(user);
+    @GetMapping("/archive/id/{id}")
+    public void archive(@PathVariable("id") long id ){
+        clientServiceImpl.archive(id);
     }
+
 
 }

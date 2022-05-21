@@ -3,6 +3,7 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -44,13 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 		http.addFilter(new JwtAuthentificationFilter(authenticationManager()))
 		.authorizeRequests().antMatchers("/authenticate", "/signin").permitAll()
-		.antMatchers("/public").authenticated()
+				.anyRequest().permitAll()
+			//	.anyRequest().authenticated()
 		.and()
-		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);	
+		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 		http.addFilter(new JwtAuthentificationFilter(authenticationManager()))
 		.addFilterBefore(new JwtAutorisationFilter(), UsernamePasswordAuthenticationFilter.class);
-//		.and()
-//		.addFilter(new );
 
 	}
 

@@ -2,10 +2,15 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository;
 
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface ClientRepo extends JpaRepository<Client,Long> {
 
@@ -14,5 +19,15 @@ public interface ClientRepo extends JpaRepository<Client,Long> {
     List<Client> findBySexe(String sexe);
 
     List<Client> findByEtablissement(String etablissement);
+
+    @Transactional
+    @Modifying
+    @Query("update Client c set c.isArchived = 1 where c.id = ?1")
+    void archive(long id);
+
+    List<Client> findByIsArchivedFalse();
+
+
+
 
 }

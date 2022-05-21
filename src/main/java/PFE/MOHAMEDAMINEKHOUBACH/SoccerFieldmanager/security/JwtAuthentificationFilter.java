@@ -30,7 +30,7 @@ public class JwtAuthentificationFilter extends UsernamePasswordAuthenticationFil
 		try {
 			 user = new ObjectMapper().readValue(request.getInputStream(), User.class);
 		} catch (IOException e) {
-			System.out.println("requet mal formed");
+			System.out.println("request mal formed");
 		}
 		return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 	}
