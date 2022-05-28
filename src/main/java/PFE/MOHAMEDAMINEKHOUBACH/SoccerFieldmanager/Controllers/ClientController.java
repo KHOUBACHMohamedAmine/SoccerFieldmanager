@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 @RequestMapping("/api/v1/clients")
 public class ClientController {
     private ClientServiceImpl clientServiceImpl;
@@ -80,9 +80,10 @@ public class ClientController {
   //  @PreAuthorize("hasAuthority('ADMIN')")
      @PutMapping("/update/id/{id}")
     public ResponseEntity updateClient(@PathVariable("id") long id,@RequestBody Client client){
+
         try {
-            clientServiceImpl.updateClient(client,id);
-            return new ResponseEntity(client,HttpStatus.OK);
+            Client existingClient = clientServiceImpl.updateClient(client,id);
+            return new ResponseEntity(existingClient,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
@@ -99,9 +100,15 @@ public class ClientController {
        }
 
      }
-    @GetMapping("/archive/id/{id}")
-    public void archive(@PathVariable("id") long id ){
-        clientServiceImpl.archive(id);
+    @PutMapping("/archive/id/{id}")
+    public ResponseEntity archive(@PathVariable("id") long id ){
+
+        try{
+            Client client =clientServiceImpl.archive(id);
+            return new ResponseEntity<>(client,HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
 
 

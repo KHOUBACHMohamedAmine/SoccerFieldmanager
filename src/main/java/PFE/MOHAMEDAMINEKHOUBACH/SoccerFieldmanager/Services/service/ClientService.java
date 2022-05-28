@@ -13,7 +13,7 @@ Client deleteById(long id);
 List<Client> getClientByCin(String cin);
 List<Client> getClientBySexe(String sexe);
 List<Client> getClientByEtablissement(String etablissement);
-void archive(long id);
+Client archive(long id);
 List<Client> getClientNonArchived();
 
 }

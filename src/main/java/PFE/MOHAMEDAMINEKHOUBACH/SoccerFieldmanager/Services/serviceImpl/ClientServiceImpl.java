@@ -39,6 +39,7 @@ public class ClientServiceImpl implements ClientService {
 
  @Override
  public Client updateClient(Client client, long id) {
+  System.out.println("I have been called");
   Client existingClient = clientRepo.findById(id).orElseThrow(
           () -> new RessourceNotFound("Client", "Id", id));
 
@@ -49,10 +50,10 @@ public class ClientServiceImpl implements ClientService {
   existingClient.setNumtel(client.getNumtel());
   existingClient.setNumapogee(client.getNumapogee());
   existingClient.setSexe(client.getSexe());
-  existingClient.getUser().setEmail((client.getUser().getEmail()));
-  existingClient.getUser().setPassword((client.getUser().getPassword()));
   clientRepo.save(existingClient);
+  System.out.println("client retrieved : "+existingClient.getUser().toString());
   return existingClient;
+
  }
 
  @Override
@@ -85,8 +86,13 @@ public class ClientServiceImpl implements ClientService {
  }
 
  @Override
- public void archive(long id) {
-  clientRepo.archive(id);
+ public Client archive(long id) {
+  Client existingClient = clientRepo.findById(id).orElseThrow(
+          () -> new RessourceNotFound("Client", "Id", id));
+    existingClient.setArchived(true);
+    clientRepo.save(existingClient);
+     return existingClient;
+
  }
 
  @Override

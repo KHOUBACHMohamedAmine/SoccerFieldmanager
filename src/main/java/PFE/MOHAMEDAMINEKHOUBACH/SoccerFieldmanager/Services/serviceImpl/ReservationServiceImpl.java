@@ -6,7 +6,6 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.ReservationRepo;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.ReservationService;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.service.TerrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,13 +52,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation updateReservation(Reservation reservation) {
-        Reservation existingReservation = reservationRepo.findById(reservation.getId()).orElseThrow(
-                () -> new RessourceNotFound("Reservation", "Id", reservation.getId()));
+    public Reservation updateReservation(long id ,Reservation reservation) {
+        Reservation existingReservation = reservationRepo.findById(id).orElseThrow(
+                () -> new RessourceNotFound("Reservation", "Id", id));
         if (existingReservation.getStatus() == 0) existingReservation.setStatus(reservation.getStatus());
         else throw new RuntimeException("Reservation is already confirmed , cannot be updated !!");
-        existingReservation.setTerrain(reservation.getTerrain());
-        existingReservation.setClient(reservation.getClient());
         existingReservation.setDate(reservation.getDate());
         existingReservation.setReference(reservation.getReference());
         reservationRepo.save(existingReservation);
@@ -67,10 +64,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
     @Transactional
     @Override
-    public void deleteById(long id) {
-        reservationRepo.findById(id).orElseThrow(() ->
+    public Reservation deleteById(long id) {
+        Reservation reservation = reservationRepo.findById(id).orElseThrow(() ->
                 new RessourceNotFound("Reservation", "Id", id));
         reservationRepo.deleteById(id);
+
+        return reservation;
     }
 
     @Override
@@ -131,6 +130,11 @@ public class ReservationServiceImpl implements ReservationService {
             }
          return  reservationRepo.save(founded);
          }
+
+    @Override
+    public List<Reservation> getReservationNonArchived() {
+        return reservationRepo.findByStatusIsNot(2);
+    }
 
 
 }

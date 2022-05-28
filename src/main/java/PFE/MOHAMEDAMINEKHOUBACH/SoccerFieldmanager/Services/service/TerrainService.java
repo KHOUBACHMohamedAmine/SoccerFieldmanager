@@ -10,7 +10,7 @@ public interface TerrainService {
     List<Terrain> getAllTerrains();
     Terrain getTerrainById(long id);
     Terrain updateTerrain(Terrain terrain,long id);
-    void deleteById(long id);
+    Terrain deleteById(long id);
     List<Terrain> getTerrainByReference(String reference);
     List<Terrain> getTerrainByEtat(String etat);
 }

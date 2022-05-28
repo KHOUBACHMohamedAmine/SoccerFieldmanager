@@ -20,10 +20,8 @@ public interface ClientRepo extends JpaRepository<Client,Long> {
 
     List<Client> findByEtablissement(String etablissement);
 
-    @Transactional
-    @Modifying
-    @Query("update Client c set c.isArchived = 1 where c.id = ?1")
-    void archive(long id);
+
+
 
     List<Client> findByIsArchivedFalse();
 

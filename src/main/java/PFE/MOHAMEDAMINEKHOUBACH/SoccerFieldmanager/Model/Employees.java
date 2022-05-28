@@ -1,37 +1,42 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Personnel implements Serializable {
 
-
-
-    @Column(nullable = false, unique = true)
+@Entity
+public class Employees implements Serializable {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
     private String cin;
     private String nom;
     private String prenom;
     private String sexe;
     private String numtel;
+    private String poste;
 
-
-
-
-    public Personnel() {
+    public Employees() {
     }
 
-    public Personnel(String cin, String nom, String prenom, String sexe, String numtel) {
-        super();
+    public Employees(String cin, String nom, String prenom, String sexe, String numtel, String poste) {
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
         this.numtel = numtel;
+        this.poste = poste;
     }
 
+    public long getId() {
+        return id;
+    }
 
-
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getCin() {
         return cin;
@@ -72,15 +77,12 @@ public class Personnel implements Serializable {
     public void setNumtel(String numtel) {
         this.numtel = numtel;
     }
-    @Override
-    public String toString(){
-        return "Personnel{" +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", cin='" + cin + '\'' +
-                ", sexe='" + sexe + '\'' +
-                ", numtel='" + numtel + '\'' +
 
-                '}';
+    public String getPoste() {
+        return poste;
+    }
+
+    public void setPoste(String poste) {
+        this.poste = poste;
     }
 }

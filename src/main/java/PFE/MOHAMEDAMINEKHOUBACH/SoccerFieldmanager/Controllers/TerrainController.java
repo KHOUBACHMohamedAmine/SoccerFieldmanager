@@ -71,11 +71,11 @@ public class TerrainController {
         }
 
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteClientById(@PathVariable("id") Long id){
+    @DeleteMapping("/delete/id/{id}")
+    public ResponseEntity deleteTerrainById(@PathVariable("id") Long id){
         try {
-            terrainServiceImpl.deleteById(id);
-            return new ResponseEntity<String>("Terrain deleted Succesfully",HttpStatus.OK);
+            Terrain terrain = terrainServiceImpl.deleteById(id);
+            return new ResponseEntity(terrain,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }

@@ -3,7 +3,6 @@ package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Reservation;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Terrain;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.ReservationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +27,10 @@ public class ReservationController {
     public ResponseEntity<Reservation> save(@RequestBody Reservation reservation){
         return new ResponseEntity<Reservation>(reservationServiceImpl.save(reservation), HttpStatus.CREATED);
     }
+    @GetMapping("/nonArchived")
+    public List<Reservation> getReservationsNonArchived(){
+        return reservationServiceImpl.getReservationNonArchived();
+    }
  //   @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/")
     public List<Reservation> getAllReservations(){
@@ -35,7 +38,7 @@ public class ReservationController {
     }
   //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/id/{id}")
-    public ResponseEntity<Terrain> getReservationById(@PathVariable("id") Long id){
+    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Long id){
 
         try{
             return new ResponseEntity(reservationServiceImpl.getReservationById(id),HttpStatus.OK);
@@ -87,26 +90,24 @@ public class ReservationController {
 
     }
  //   @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/update")
-    public ResponseEntity updateReservation(@RequestBody Reservation reservation){
+    @PutMapping("/update/id/{id}")
+    public ResponseEntity updateReservation(@PathVariable("id") long id,@RequestBody Reservation reservation){
         try {
-            reservationServiceImpl.updateReservation(reservation);
-            return new ResponseEntity(reservation,HttpStatus.OK);
+            Reservation reservationfounded= reservationServiceImpl.updateReservation(id,reservation);
+            return new ResponseEntity(reservationfounded,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
-        catch (RuntimeException r){
-            return new ResponseEntity(r.getMessage(),HttpStatus.CONFLICT);
-        }
+
 
     }
-    @Transactional
+
  //   @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteReservationById(@PathVariable("id") Long id){
         try {
-            reservationServiceImpl.deleteById(id);
-            return new ResponseEntity<String>("Reservation deleted Succesfully",HttpStatus.OK);
+            Reservation reservation =reservationServiceImpl.deleteById(id);
+            return new ResponseEntity<>(reservation,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
@@ -122,7 +123,7 @@ public class ReservationController {
     @Transactional
    // @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/confirm")
-    public ResponseEntity confirmerReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity confirmerReservation( @RequestBody Reservation reservation) {
         try{
             return new ResponseEntity(reservationServiceImpl.confirmerReservation(reservation), HttpStatus.OK);
         }catch (RessourceNotFound r)

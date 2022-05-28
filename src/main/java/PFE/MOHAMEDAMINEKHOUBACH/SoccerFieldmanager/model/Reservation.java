@@ -7,7 +7,6 @@ import java.util.Date;
 @Table
 @Entity
 public class Reservation  implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
@@ -15,7 +14,6 @@ public class Reservation  implements Serializable {
     private String reference;
     private Date date;
     private int status;
-
 
     @ManyToOne
     private Client client;
@@ -26,20 +24,11 @@ public class Reservation  implements Serializable {
 
     public Reservation() {}
 
-    public Reservation(String reference, Date date, int status, Client client, Terrain terrain) {
+    public Reservation(long id, String reference, Date date_reservation) {
+        this.id = id;
         this.reference = reference;
-        this.date = date;
-        this.status = status;
-        this.client = client;
-        this.terrain = terrain;
-    }
+        this.date = date_reservation;
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public long getId() {
@@ -63,7 +52,7 @@ public class Reservation  implements Serializable {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date= date;
     }
 
     public Client getClient() {
@@ -82,12 +71,11 @@ public class Reservation  implements Serializable {
         this.terrain = terrain;
     }
 
-    @Override
-    public String toString(){
-        return "Reservation{" +
-                "id=" +id +
-                ", date ='" + date + '\'' +
-                ", reference='" + reference + '\'' +
-                '}';
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

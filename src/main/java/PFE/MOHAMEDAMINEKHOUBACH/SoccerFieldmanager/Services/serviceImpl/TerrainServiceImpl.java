@@ -49,10 +49,12 @@ public class TerrainServiceImpl implements TerrainService {
     }
 
     @Override
-    public void deleteById(long id) {
-        terrainRepo.findById(id).orElseThrow(() ->
+    public Terrain deleteById(long id) {
+        Terrain terrain = terrainRepo.findById(id).orElseThrow(() ->
                 new RessourceNotFound("Terrain", "Id", id));
+
         terrainRepo.deleteById(id);
+        return terrain;
 
     }
 
