@@ -20,6 +20,17 @@ public class EmployeesController {
         super();
         this.empServiceImpl = empServiceImpl;
     }
+    @GetMapping("/cin/{cin}")
+    public ResponseEntity getClientByCin(@PathVariable("cin") String cin){
+
+        try{
+            System.out.println("triggered");
+            return new ResponseEntity(empServiceImpl.getEmployeeByCin(cin),HttpStatus.OK);
+        }catch (RessourceNotFound r){
+            return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+    }
     @PostMapping("/")
     public ResponseEntity<Employees> saveEmployee(@RequestBody Employees employees){
         return new ResponseEntity<>(empServiceImpl.save(employees), HttpStatus.CREATED);
@@ -30,10 +41,10 @@ public class EmployeesController {
         return  empServiceImpl.getAllEmployees();
     }
     @GetMapping("/id/{id}")
-    public ResponseEntity<Employees> getEmployeesById(@PathVariable("id") Long id){
-
+    public ResponseEntity<Employees> getEmployeesById(@PathVariable("id") long id){
         try{
-            return new ResponseEntity(empServiceImpl.getEmployeeById(id),HttpStatus.OK);
+            Employees employeesfounded = empServiceImpl.getEmployeeById(id);
+            return new ResponseEntity(employeesfounded,HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
@@ -48,6 +59,7 @@ public class EmployeesController {
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+
 
     //   @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")

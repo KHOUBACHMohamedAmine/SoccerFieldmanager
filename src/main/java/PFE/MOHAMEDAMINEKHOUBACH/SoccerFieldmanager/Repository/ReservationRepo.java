@@ -16,6 +16,9 @@ public interface ReservationRepo extends JpaRepository<Reservation,Long> {
     List<Reservation> findByClient_Id(long id);
     List<Reservation> findByTerrain_Id(long id);
     List<Reservation> findByStatusEquals(int status);
+
+    List<Reservation> findByDateAndTerrain_IdAndHour(Date date, long id, int hour);
+
     List<Reservation> findByDateAndTerrain_Id(Date date, long id);
 
     List<Reservation> findByStatusIsNot(int status);

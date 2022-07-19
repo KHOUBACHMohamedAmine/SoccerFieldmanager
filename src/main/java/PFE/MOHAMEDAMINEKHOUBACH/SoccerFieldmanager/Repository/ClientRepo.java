@@ -20,6 +20,8 @@ public interface ClientRepo extends JpaRepository<Client,Long> {
 
     List<Client> findByEtablissement(String etablissement);
 
+    Client findByUser_Email(String email);
+
 
 
 

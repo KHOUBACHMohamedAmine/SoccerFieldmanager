@@ -59,6 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
         else throw new RuntimeException("Reservation is already confirmed , cannot be updated !!");
         existingReservation.setDate(reservation.getDate());
         existingReservation.setReference(reservation.getReference());
+        existingReservation.setHour(reservation.getHour());
         reservationRepo.save(existingReservation);
         return existingReservation;
     }
@@ -121,7 +122,7 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation confirmerReservation(Reservation reservation) {
          Reservation founded = reservationRepo.findById(reservation.getId()).orElseThrow(()-> new RessourceNotFound("Reservation","Id",reservation.getId()));
          founded.setStatus(1);
-         List<Reservation> reservationsfounded=reservationRepo.findByDateAndTerrain_Id(reservation.getDate(),reservation.getTerrain().getId());
+         List<Reservation> reservationsfounded=reservationRepo.findByDateAndTerrain_IdAndHour(reservation.getDate(),reservation.getTerrain().getId(),reservation.getHour());
         for ( Reservation r:reservationsfounded) {
             if (r.getId()!=reservation.getId()){
                 r.setStatus(2) ;

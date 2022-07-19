@@ -1,5 +1,7 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +14,10 @@ public class Reservation  implements Serializable {
     @Column(nullable = false,updatable = false)
     private long id;
     private String reference;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date date;
+    private int hour;
     private int status;
 
     @ManyToOne
@@ -24,11 +29,13 @@ public class Reservation  implements Serializable {
 
     public Reservation() {}
 
-    public Reservation(long id, String reference, Date date_reservation) {
-        this.id = id;
+    public Reservation(String reference, Date date, int hour, int status, Client client, Terrain terrain) {
         this.reference = reference;
-        this.date = date_reservation;
-
+        this.date = date;
+        this.hour = hour;
+        this.status = status;
+        this.client = client;
+        this.terrain = terrain;
     }
 
     public long getId() {
@@ -38,6 +45,10 @@ public class Reservation  implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
+    public int getHour() {return hour;}
+
+    public void setHour(int hour) {this.hour = hour;}
 
     public String getReference() {
         return reference;

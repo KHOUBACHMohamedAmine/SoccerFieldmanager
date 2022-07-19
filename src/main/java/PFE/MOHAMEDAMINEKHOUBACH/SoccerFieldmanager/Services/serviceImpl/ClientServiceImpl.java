@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
-   private  final ClientRepo clientRepo;
+   private  final ClientRepo clientRepo ;
 
     @Autowired
     public ClientServiceImpl(ClientRepo clientRepo) {
@@ -22,11 +21,16 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
+
+
  @Override
  public Client save(Client client) {
-  return clientRepo.save(client);
+  List<Client> foundedClient = clientRepo.findByCin(client.getCin());
+  if (!foundedClient.isEmpty()) throw new RuntimeException("Cin already used !");
+  else {
+   return clientRepo.save(client);
+  }
  }
-
  @Override
  public List<Client> getAllClients() {
   return clientRepo.findAll();
@@ -66,9 +70,9 @@ public class ClientServiceImpl implements ClientService {
 
  @Override
  public List<Client> getClientByCin(String cin) {
-     List<Client> clientsfounded=new ArrayList<Client>(clientRepo.findByCin(cin));
-  if (clientsfounded.isEmpty()) throw new RessourceNotFound("Client","Cin",cin);
-  else return clientsfounded ;
+     List<Client> clientfounded=clientRepo.findByCin(cin);
+  if (clientfounded.isEmpty()) throw new RessourceNotFound("Client","Cin",cin);
+  else return clientfounded ;
  }
 
  @Override
@@ -99,6 +103,17 @@ public class ClientServiceImpl implements ClientService {
  public List<Client> getClientNonArchived() {
   return clientRepo.findByIsArchivedFalse();
  }
+
+
+
+ @Override
+ public Client getClientByUserEmail(String email) {
+  System.out.println("triggered1");
+  Client existingClient = clientRepo.findByUser_Email(email);
+      if (existingClient==null) throw  new RessourceNotFound("Client", "Email", email);
+ else return existingClient;
+ }
+
 
 
 

@@ -29,7 +29,14 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     @Override
-    public Employees getClientById(long id) {
+    public List<Employees> getEmployeeByCin(String cin) {
+        List<Employees> emplFounded=this.empRepo.findByCin(cin);
+        if (emplFounded.isEmpty()) throw new RessourceNotFound("Employee","Cin" ,cin);
+        return emplFounded;
+    }
+
+    @Override
+    public Employees getEmployeeById(long id) {
         return empRepo.findById(id).orElseThrow(()-> new RessourceNotFound("Employee","Id",id));
     }
 
@@ -44,6 +51,7 @@ public class EmployeesServiceImpl implements EmployeesService {
         existingEmp.setPoste(employees.getPoste());
         existingEmp.setPrenom(employees.getPrenom());
         existingEmp.setSexe(employees.getSexe());
+        existingEmp.setSalaire(employees.getSalaire());
 
         empRepo.save(existingEmp);
         return existingEmp;

@@ -1,5 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl;
 
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Role;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.UserRepo;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
     UserRepo userRepo;
     @Autowired
     RoleService roleService;
+    @Autowired
+    ClientServiceImpl clientService;
 
 
     @Autowired
@@ -49,9 +52,11 @@ public class UserServiceImpl implements UserService {
             else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled(true);
+            System.out.println("triggerred");
             userRepo.save(user);
             UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(user.getEmail());
             String jwt = JwtUtil.generateToken(userDetails);
+
             return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
 
 
@@ -73,12 +78,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> authenticate(User user) {
+
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(user.getEmail());
         String jwt = JwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(),userDetails.getAuthorities()));
     }
 
 }

@@ -5,6 +5,7 @@ import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import java.util.List;
 
 public interface ClientService {
+
 Client save(Client client);
 List<Client> getAllClients();
 Client getClientById(long id);
@@ -15,5 +16,5 @@ List<Client> getClientBySexe(String sexe);
 List<Client> getClientByEtablissement(String etablissement);
 Client archive(long id);
 List<Client> getClientNonArchived();
-
+Client getClientByUserEmail(String email);
 }

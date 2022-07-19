@@ -1,7 +1,7 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security;
 
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
-import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserDetailsServiceImpl;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Repository.ClientRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,12 +17,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class JwtUtil {
-	
+
 	public static final String SECRET_KEY = "SoccerFieldManager";
 	public static final String ROLES_LABEL = "roles";
 	public static final String HEADER_TOKEN_SUFFIX = "Bearer ";
 	public static final String HTTP_AUTORISATION_HEADER = "Authorization";
 	public static final String EMPTY_STRING = "";
+	public static final ClientRepo clientRepo = null;
 	private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10h
 
    
@@ -37,15 +38,15 @@ public class JwtUtil {
 		response.addHeader(HTTP_AUTORISATION_HEADER, jwtToken);
 	}
 
-	public static String generateToken(UserDetails userDetails) {
+	public static String generateToken(UserDetails userDetails ) {
+
 		Map<String, Object> claims = new HashMap<String, Object>();
+
 		List<String> roles = userDetails.getAuthorities().stream().map(a -> a.getAuthority())
 				.collect(Collectors.toList());
 		claims.put(ROLES_LABEL, roles);
 		long issuedAt = System.currentTimeMillis();
-		return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(issuedAt))
-				.setExpiration(new Date(issuedAt + EXPIRATION_TIME)).signWith(SignatureAlgorithm.HS512,SECRET_KEY)
-				.compact();
+		return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(issuedAt)).setExpiration(new Date(issuedAt + EXPIRATION_TIME)).signWith(SignatureAlgorithm.HS512,SECRET_KEY).compact();
 	}
 
 	public static Claims getAllClaimsGeneratedToken(String token) {

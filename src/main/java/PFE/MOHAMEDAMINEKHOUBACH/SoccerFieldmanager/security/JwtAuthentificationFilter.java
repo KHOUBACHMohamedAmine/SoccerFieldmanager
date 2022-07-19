@@ -1,5 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.security;
 
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Services.serviceImpl.UserDetailsImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,9 +38,10 @@ public class JwtAuthentificationFilter extends UsernamePasswordAuthenticationFil
 
 
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authResult) throws IOException, ServletException {
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+
 		UserDetailsImpl user= (UserDetailsImpl) authResult.getPrincipal();
+		Client client = user.getUserClient(user.getUsername()) ;
 		JwtUtil.generateTokenInHttpHeader(user, response);
 	}
 }

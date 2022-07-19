@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +51,11 @@ public class ReservationController {
 
  //   @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/date/{date}")
-    public ResponseEntity getReservationByDate(@PathVariable("date") Date date){
+    public ResponseEntity getReservationByDate(@PathVariable("date") String date) throws ParseException {
+        SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
+        Date date1=formatter1.parse(date);
         try{
-            return new ResponseEntity(reservationServiceImpl.getReservationByDate(date),HttpStatus.OK);
+            return new ResponseEntity(reservationServiceImpl.getReservationByDate(date1),HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);
         }

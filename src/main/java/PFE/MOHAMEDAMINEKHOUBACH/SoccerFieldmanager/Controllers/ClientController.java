@@ -1,5 +1,6 @@
 package PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Controllers;
 
+import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceAlreadyUsed;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Exception.RessourceNotFound;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.Client;
 import PFE.MOHAMEDAMINEKHOUBACH.SoccerFieldmanager.Model.User;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"http://localhost:8090","http://localhost:4200"})
 @RequestMapping("/api/v1/clients")
 public class ClientController {
     private ClientServiceImpl clientServiceImpl;
@@ -23,9 +24,17 @@ public class ClientController {
         super();
         this.clientServiceImpl = clientServiceImpl;
     }
-    @PostMapping("/")
-    public ResponseEntity<Client> saveClient(@RequestBody Client client){
-        return new ResponseEntity<Client>(clientServiceImpl.save(client),HttpStatus.CREATED);
+    @PostMapping("/signin")
+    public ResponseEntity<?> saveClient(@RequestBody Client client){
+
+        try{
+            return new ResponseEntity<Client>(clientServiceImpl.save(client),HttpStatus.CREATED);
+        }catch (RuntimeException r){
+            return new ResponseEntity<>(r.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+
+
     }
    // @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/")
@@ -60,7 +69,9 @@ public class ClientController {
   //  @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/cin/{cin}")
     public ResponseEntity getClientByCin(@PathVariable("cin") String cin){
+
         try{
+            System.out.println("triggered");
             return new ResponseEntity(clientServiceImpl.getClientByCin(cin),HttpStatus.OK);
         }catch (RessourceNotFound r){
             return new ResponseEntity(r.getMessage(),HttpStatus.NOT_FOUND);

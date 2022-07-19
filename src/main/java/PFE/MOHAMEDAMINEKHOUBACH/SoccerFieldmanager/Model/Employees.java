@@ -17,17 +17,27 @@ public class Employees implements Serializable {
     private String sexe;
     private String numtel;
     private String poste;
+    private double salaire;
 
     public Employees() {
     }
 
-    public Employees(String cin, String nom, String prenom, String sexe, String numtel, String poste) {
+    public Employees(String cin, String nom, String prenom, String sexe, String numtel, String poste, double salaire) {
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
         this.numtel = numtel;
         this.poste = poste;
+        this.salaire = salaire;
+    }
+
+    public double getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(double salaire) {
+        this.salaire = salaire;
     }
 
     public long getId() {
